@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>startscreen.qml</file>
+        <file>catalog.qml</file>
+        <file>basket.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>profile.qml</file>
+        <file>sales.qml</file>
+        <file>contacts.qml</file>
+        <file>aboutus.qml</file>
+        <file>delivery.qml</file>
+        <file>register.qml</file>
+        <file>good.qml</file>
+        <file>goodtake.qml</file>
+        <file>components/Category.qml</file>
+    </qresource>
+</RCC>
