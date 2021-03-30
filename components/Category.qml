@@ -22,12 +22,8 @@ Rectangle {
 
   MouseArea {
     anchors.fill: parent
-    onPressed: {
-      rect.color = "grey"
-    }
-    onReleased: {
-      stackView.push("../catalog.qml")
-      rect.color = "white"
-    }
+    onPressed: rect.color = "grey"
+    onReleased: rect.color = "white"
+    onClicked: stackView.push("../catalog.qml", {"category": category})
   }
 }

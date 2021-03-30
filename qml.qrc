@@ -14,5 +14,6 @@
         <file>good.qml</file>
         <file>goodtake.qml</file>
         <file>components/Category.qml</file>
+        <file>components/Good.qml</file>
     </qresource>
 </RCC>

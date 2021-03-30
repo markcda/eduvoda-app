@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import "components"
 
 Page {
+  id: page
   width: parent.width
   height: parent.height
   topPadding: 5
@@ -10,7 +11,8 @@ Page {
   title: qsTr("Главная")
 
   Column {
-    anchors.fill: parent
+    width: parent.width
+    anchors.verticalCenter: parent.verticalCenter
     spacing: 5
 
     Category {
