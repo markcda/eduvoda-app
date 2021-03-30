@@ -24,6 +24,6 @@ Rectangle {
     anchors.fill: parent
     onPressed: rect.color = "grey"
     onReleased: rect.color = "white"
-    onClicked: stackView.push("../catalog.qml", {"category": category})
+    onClicked: stackView.push("../catalog.qml", {"category": category, "catText": catText})
   }
 }

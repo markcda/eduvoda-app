@@ -6,5 +6,10 @@
         <file>arts/otri-5l.png</file>
         <file>arts/otri-19l.png</file>
         <file>arts/pomp-el-p-1200.png</file>
+        <file>arts/pomp-el-p-1200w.png</file>
+        <file>arts/pomp-enlargened.png</file>
+        <file>arts/pomp-std.png</file>
+        <file>arts/pomp-stdp.png</file>
+        <file>arts/ruchka.png</file>
     </qresource>
 </RCC>

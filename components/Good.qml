@@ -13,7 +13,15 @@ Rectangle {
   Layout.margins: 5
 
   property alias text: label.text
+  property alias img: image.source
   property int category: 0
+
+  Image {
+    id: image
+    anchors.centerIn: parent
+    height: parent.height - label.height - 15
+    fillMode: Image.PreserveAspectFit
+  }
 
   Label {
     id: label
