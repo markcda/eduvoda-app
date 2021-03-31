@@ -15,6 +15,7 @@ Rectangle {
   property alias text: label.text
   property alias img: image.source
   property int category: 0
+  property int id: 0
 
   Image {
     id: image
@@ -37,6 +38,6 @@ Rectangle {
     anchors.fill: parent
     onPressed: rect.color = "grey"
     onReleased: rect.color = "white"
-    onClicked: stackView.push("../good.qml")
+    onClicked: stackView.push("../good.qml", {"id": id})
   }
 }

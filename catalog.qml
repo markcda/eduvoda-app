@@ -10,7 +10,7 @@ Page {
   property int category: 0
   property alias catText: titleLbl.text
 
-  title: qsTr("Товары")
+  title: "Товары"
 
   ScrollView {
     id: sv
@@ -25,7 +25,7 @@ Page {
       width: parent.width
       leftPadding: 5
       font.bold: true
-      font.pixelSize: 36
+      font.pointSize: 18
       wrapMode: Text.WordWrap
     }
 
@@ -49,10 +49,12 @@ Page {
               var obj = com.createObject(lv);
               obj.text = goods.rows.item(i).label;
               obj.img = goods.rows.item(i).img;
+              obj.id = goods.rows.item(i).id;
             }
           }
         })
       }
     }
+    contentHeight: lv.y + lv.height + 5
   }
 }
