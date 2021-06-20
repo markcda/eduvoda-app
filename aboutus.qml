@@ -38,11 +38,15 @@ Page {
       font.pointSize: 14
     }
 
-    GreenBtnGoHome {
+    GreenBtn {
       id: goHome
       y: aboutLbl.y + aboutLbl.height + 5
       anchors.bottomMargin: 10
       text: "Купить"
+      ma.onClicked: {
+        while (stackView.depth > 1)
+          stackView.pop()
+      }
     }
   contentHeight: goHome.y + goHome.height + 10
   }

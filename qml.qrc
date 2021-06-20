@@ -15,7 +15,7 @@
         <file>goodtake.qml</file>
         <file>components/Category.qml</file>
         <file>components/Good.qml</file>
-        <file>components/GreenBtnGoHome.qml</file>
+        <file>components/GreenBtn.qml</file>
         <file>components/GradientRect1.qml</file>
         <file>components/GradientRect2.qml</file>
     </qresource>

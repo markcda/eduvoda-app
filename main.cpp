@@ -14,7 +14,8 @@ int main(int argc, char *argv[]) {
   QSettings st(QSettings::IniFormat, QSettings::UserScope, "CCLC", "EduVoda");
   if (st.value("notfirsttime") != "Yes") {
     QDir().mkpath(appDataPath);
-    QFile::copy(":/db.db", appDataPath + QDir::separator() + "db.db");
+    QFile::copy(":/db.db", appDataPath + QDir::separator() +
+                               "d77d5e503ad1439f585ac494268b351b.sqlite");
     st.setValue("notfirsttime", "Yes");
     st.sync();
   }

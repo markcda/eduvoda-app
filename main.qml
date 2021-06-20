@@ -1,18 +1,19 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import QtQuick.LocalStorage 2.15
 
 ApplicationWindow {
   id: window
   width: 380
   height: 700
   visible: true
-  title: qsTr("ЕдуВода")
+  title: "ЕдуВода"
 
   header: ToolBar {
-    contentHeight: toolButton.implicitHeight
+    contentHeight: pushBackToolButton.implicitHeight
 
     ToolButton {
-      id: toolButton
+      id: pushBackToolButton
       text: stackView.depth > 1 ? "\u25C0" : "\u2630"
       font.pixelSize: Qt.application.font.pixelSize * 1.6
       onClicked: {
@@ -39,7 +40,7 @@ ApplicationWindow {
       anchors.fill: parent
 
       ItemDelegate {
-        text: qsTr("О нас")
+        text: "О нас"
         width: parent.width
         onClicked: {
           stackView.push("aboutus.qml")
@@ -47,7 +48,7 @@ ApplicationWindow {
         }
       }
       ItemDelegate {
-        text: qsTr("Акции")
+        text: "Акции"
         width: parent.width
         onClicked: {
           stackView.push("sales.qml")
@@ -61,5 +62,17 @@ ApplicationWindow {
     id: stackView
     initialItem: "startscreen.qml"
     anchors.fill: parent
+
+    Component.onCompleted: {
+      var db = LocalStorage.openDatabaseSync("db", "1.0", "AppDB", 1000000);
+      db.transaction(function (tx) {
+        // Проверка на запуск в первый раз
+        var res = tx.executeSql('SELECT name FROM sqlite_master WHERE type="table" AND name="fs"');
+        if (res.rows.length === 0) {
+          stackView.push("register.qml");
+          pushBackToolButton.visible = false;
+        }
+      })
+    }
   }
 }

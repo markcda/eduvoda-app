@@ -19,6 +19,8 @@ Page {
 
     ScrollBar.horizontal.policy: Qt.ScrollBarAlwaysOff
 
+
+
     Label {
       id: helloLbl
       y: 10

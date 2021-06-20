@@ -10,6 +10,7 @@ Rectangle {
   color: "green"
 
   property alias text: label.text
+  property alias ma: ma
 
   Label {
     id: label
@@ -20,12 +21,9 @@ Rectangle {
   }
 
   MouseArea {
+    id: ma
     anchors.fill: parent
     onPressed: rect.color = "darkgreen"
     onReleased: rect.color = "green"
-    onClicked: {
-      while (stackView.depth > 1)
-        stackView.pop()
-    }
   }
 }
