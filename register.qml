@@ -5,8 +5,7 @@ import QtQuick.LocalStorage 2.15
 import "components"
 
 Page {
-  width: parent.width
-  height: parent.height
+  anchors.fill: parent
 
   title: "Вход в приложение"
 

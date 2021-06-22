@@ -27,8 +27,7 @@ Page {
         anchors.verticalCenter: parent.verticalCenter
         leftPadding: 5
         color: "white"
-        text: "Для физических лиц, купивших 2 бутылки воды по 19 литров, механическая помпа и залог
-на тару всего за 1050 рублей!"
+        text: "Для физических лиц, купивших 2 бутылки воды по 19 литров, механическая помпа и залог на тару всего за 1050 рублей!"
         textFormat: Text.RichText
         wrapMode: Text.WordWrap
         font.pointSize: 14
@@ -50,8 +49,7 @@ Page {
         anchors.verticalCenter: parent.verticalCenter
         leftPadding: 5
         color: "white"
-        text: "Для юридических лиц, заключивших договор на доставку воды на весь 2021 год, тара
-предоставляется без залога!"
+        text: "Для юридических лиц, заключивших договор на доставку воды на весь 2021 год, тара предоставляется без залога!"
         textFormat: Text.RichText
         wrapMode: Text.WordWrap
         font.pointSize: 14

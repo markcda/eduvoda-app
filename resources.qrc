@@ -11,5 +11,7 @@
         <file>arts/pomp-std.png</file>
         <file>arts/pomp-stdp.png</file>
         <file>arts/ruchka.png</file>
+        <file>arts/16/amarok_cart_add.svg</file>
+        <file>arts/16/bookmark-new.svg</file>
     </qresource>
 </RCC>

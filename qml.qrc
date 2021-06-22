@@ -18,5 +18,6 @@
         <file>components/GreenBtn.qml</file>
         <file>components/GradientRect1.qml</file>
         <file>components/GradientRect2.qml</file>
+        <file>components/MiniBtnLayer.qml</file>
     </qresource>
 </RCC>
