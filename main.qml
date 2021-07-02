@@ -55,6 +55,14 @@ ApplicationWindow {
           drawer.close()
         }
       }
+      ItemDelegate {
+        text: "Избранное"
+        width: parent.width
+        onClicked: {
+          stackView.push("liked.qml")
+          drawer.close()
+        }
+      }
     }
   }
 

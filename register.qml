@@ -5,8 +5,6 @@ import QtQuick.LocalStorage 2.15
 import "components"
 
 Page {
-  anchors.fill: parent
-
   title: "Вход в приложение"
 
   ScrollView {

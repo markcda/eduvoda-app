@@ -13,5 +13,6 @@
         <file>arts/ruchka.png</file>
         <file>arts/16/amarok_cart_add.svg</file>
         <file>arts/16/bookmark-new.svg</file>
+        <file>arts/16/bookmark-remove.svg</file>
     </qresource>
 </RCC>
