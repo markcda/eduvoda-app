@@ -37,16 +37,16 @@ Page {
 
       Component.onCompleted: {
         if (category === 0) titleLbl.text = "Все товары";
-        var db = LocalStorage.openDatabaseSync("db", "1.0", "AppDB", 1000000);
+        let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
         db.transaction(function (tx) {
-          var goods = tx.executeSql('SELECT * FROM goods');
-          for (var i = 0; i < goods.rows.length; i++) {
+          let goods = tx.executeSql('SELECT * FROM goods');
+          for (let i = 0; i < goods.rows.length; i++) {
             if (category != 0) {
               if (goods.rows.item(i).category !== category) continue;
             }
-            var com = Qt.createComponent("components/Good.qml");
+            let com = Qt.createComponent("components/Good.qml");
             if (com.status === Component.Ready) {
-              var obj = com.createObject(lv);
+              let obj = com.createObject(lv);
               obj.text = goods.rows.item(i).label;
               obj.img = goods.rows.item(i).img;
               obj.id = goods.rows.item(i).id;

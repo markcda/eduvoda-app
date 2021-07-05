@@ -47,9 +47,9 @@ Page {
   }
 
   Component.onCompleted: {
-    var db = LocalStorage.openDatabaseSync("db", "1.0", "AppDB", 1000000);
+    let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
     db.transaction(function (tx) {
-      var goods = tx.executeSql('SELECT * FROM goods WHERE id=?', [id]);
+      let goods = tx.executeSql('SELECT * FROM goods WHERE id=?', [id]);
       if (goods.rows.length === 0)
         goodPage.title = "Товара не существует";
       else {
