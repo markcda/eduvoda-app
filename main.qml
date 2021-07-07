@@ -95,7 +95,7 @@ ApplicationWindow {
           let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
           db.transaction(function (tx) {
             let json = JSON.parse(xmlrequest.responseText);
-            tx.executeSql('CREATE TABLE goods (id INTEGER NOT NULL UNIQUE, label TEXT NOT NULL, desc TEXT, cost INTEGER NOT NULL, cathegory INTEGER NOT NULL, imageUri TEXT, PRIMARY KEY("id" AUTOINCREMENT))');
+            tx.executeSql('CREATE TABLE goods (id INTEGER NOT NULL UNIQUE, label TEXT NOT NULL, desc TEXT, cost INTEGER NOT NULL, category INTEGER NOT NULL, imageUri TEXT, PRIMARY KEY("id" AUTOINCREMENT))');
             for (let i in json.goods) {
               let hasImage = nh.downloadFile(json.goods[i].img);
               let uri = "";
@@ -104,6 +104,8 @@ ApplicationWindow {
               tx.executeSql('INSERT INTO goods VALUES(?, ?, ?, ?, ?, ?)', [json.goods[i].id, json.goods[i].goodName, json.goods[i].desc, json.goods[i].cost, json.goods[i].cathegory, uri]);
             }
             tx.executeSql('CREATE TABLE fs (key TEXT, val TEXT)');
+            tx.executeSql('CREATE TABLE liked (id INTEGER NOT NULL UNIQUE)');
+            tx.executeSql('CREATE TABLE homePaths (n INTEGER NOT NULL UNIQUE, path TEXT NOT NULL, PRIMARY KEY("n" AUTOINCREMENT))');
           })
         }
         xmlrequest.open("GET", "http://127.0.0.1:5000/get-products?hash=ffff", false);

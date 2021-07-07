@@ -76,6 +76,17 @@ Page {
       anchors.bottomMargin: 10
       text: "Зарегистрироваться"
       ma.onClicked: {
+        regError.text = "";
+        if (nameField.text === "") {
+          regError.text = "Вы не ввели своё имя";
+          return;
+        }
+        // ...
+        if (!(nh.isInternetAvailable())) {
+          regError.text = "Интернет недоступен. Повторите попытку позже.";
+          return;
+        }
+
         while (stackView.depth > 1)
           stackView.pop();
         pushBackToolButton.visible = true;
@@ -84,7 +95,7 @@ Page {
 
     Label {
       id: regError
-      visible: false
+      visible: regError.text === "" ? false : true
       color: "#FF0000"
       leftPadding: 5
       rightPadding: 5

@@ -13,15 +13,22 @@
 
 class NetHandler : public QObject {
   Q_OBJECT
+  Q_PROPERTY(bool internetAvailable READ isInternetAvailable WRITE
+                 setInternetAvailable NOTIFY internetAvailabilityChanged)
 public:
-  NetHandler(QObject *parent = nullptr) : QObject(parent) {}
+  explicit NetHandler(QObject *parent = nullptr) : QObject(parent) {}
   ~NetHandler() {}
+
+  bool isInternetAvailable();
+  void setInternetAvailable(bool available);
 
   Q_INVOKABLE QString uriFromUrl(QString url) {
     return engine.offlineStoragePath() + "/" + url.split("/").last();
   }
 
   Q_INVOKABLE bool downloadFile(QString url) {
+    if (not isInternetAvailable())
+      return false;
     QNetworkRequest req(url + "?hash=ffff");
     QNetworkReply *reply = nam.get(req);
     QEventLoop loop;
@@ -32,13 +39,10 @@ public:
     timeoutTimer.start(3000);
     loop.exec();
     if (reply->error() != QNetworkReply::NoError) {
-      std::cout << "Reply has an error." << std::endl;
-      std::cout << reply->errorString().toStdString() << std::endl;
       delete reply;
       return false;
     }
     QFile file(uriFromUrl(url));
-    std::cout << file.fileName().toStdString() << std::endl;
     if (file.open(QFile::WriteOnly)) {
       file.write(reply->readAll());
       file.close();
@@ -51,9 +55,10 @@ public:
     return false;
   }
 
-  Q_INVOKABLE bool isInternetAvailable() {
+  Q_INVOKABLE bool checkConnection() {
     bool retVal = false;
-    QNetworkRequest req(QUrl("http://networkcheck.kde.org"));
+    QNetworkRequest req(QUrl(
+        "http://127.0.0.1:5000")); /*(QUrl("http://networkcheck.kde.org"));*/
     QNetworkReply *reply = nam.get(req);
     QEventLoop loop;
     QTimer timeoutTimer;
@@ -68,9 +73,13 @@ public:
     return retVal;
   }
 
+signals:
+  void internetAvailabilityChanged();
+
 private:
   QNetworkAccessManager nam;
   QQmlApplicationEngine engine;
+  bool m_internetAvailable;
 };
 
 #endif // NET_H

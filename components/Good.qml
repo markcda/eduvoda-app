@@ -54,7 +54,7 @@ Rectangle {
     icon.source: "../arts/16/amarok_cart_add.svg"
     icon.color: "white"
     icon.width: 18
-    icon.height: icon.width
+    icon.height: 18
     anchors.bottom: parent.bottom
     anchors.right: parent.right
     anchors.bottomMargin: 5
@@ -74,7 +74,7 @@ Rectangle {
     icon.source: "../arts/16/bookmark-new.svg"
     icon.color: "red"
     icon.width: 16
-    icon.height: icon.width
+    icon.height: 16
     anchors.top: parent.top
     anchors.right: parent.right
     anchors.topMargin: 5

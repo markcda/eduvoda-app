@@ -4,8 +4,8 @@ import QtQuick.LocalStorage 2.15
 
 Page {
   id: goodPage
-  width: parent.width
-  height: parent.height
+  width: stackView.width
+  height: stackView.height
 
   property int id: 0
 
@@ -49,12 +49,12 @@ Page {
   Component.onCompleted: {
     let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
     db.transaction(function (tx) {
-      let goods = tx.executeSql('SELECT * FROM goods WHERE id=?', [id]);
+      let goods = tx.executeSql('SELECT * FROM goods WHERE id=?', id);
       if (goods.rows.length === 0)
         goodPage.title = "Товара не существует";
       else {
         goodPage.title = goods.rows.item(0).label;
-        img.source = goods.rows.item(0).img;
+        img.source = "file://" + goods.rows.item(0).imageUri;
         titleLbl.text = goods.rows.item(0).label;
         descLbl.text = goods.rows.item(0).desc;
       }

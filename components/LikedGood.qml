@@ -52,5 +52,7 @@ Rectangle {
       radius: height / 2
       border.color: "red"
     }
+    
+    onClicked: stackView.push("../good.qml", {"id": id})
   }
 }

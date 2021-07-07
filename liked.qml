@@ -31,7 +31,7 @@ Page {
             if (com.status === Component.Ready) {
               var obj = com.createObject(col);
               obj.text = good.rows.item(0).label;
-              obj.img = good.rows.item(0).img;
+              obj.img = "file://" + good.rows.item(0).imageUri;
               obj.id = good.rows.item(0).id;
             }
           }
