@@ -1,6 +1,7 @@
 #ifndef NET_H
 #define NET_H
 
+#include <QCoreApplication>
 #include <QEventLoop>
 #include <QFile>
 #include <QNetworkAccessManager>
@@ -15,12 +16,29 @@ class NetHandler : public QObject {
   Q_OBJECT
   Q_PROPERTY(bool internetAvailable READ isInternetAvailable WRITE
                  setInternetAvailable NOTIFY internetAvailabilityChanged)
+  Q_PROPERTY(bool exit READ isExitStatusSended WRITE setExitStatusSended NOTIFY
+                 exitStatusSetted)
 public:
-  explicit NetHandler(QObject *parent = nullptr) : QObject(parent) {}
+  NetHandler(QObject *parent = nullptr) : QObject(parent) {
+    QObject::connect(this, &NetHandler::exitStatusSetted, this, [this]() {
+      if (isExitStatusSended()) {
+        QCoreApplication::exit(0);
+        exit(0);
+      }
+    });
+  }
   ~NetHandler() {}
 
-  bool isInternetAvailable();
-  void setInternetAvailable(bool available);
+  Q_INVOKABLE bool isInternetAvailable() { return m_internetAvailable; }
+  void setInternetAvailable(bool available) {
+    m_internetAvailable = available;
+    emit internetAvailabilityChanged(available);
+  }
+  bool isExitStatusSended() { return m_exitStatus; }
+  void setExitStatusSended(bool exitStatus) {
+    m_exitStatus = exitStatus;
+    emit exitStatusSetted(exitStatus);
+  }
 
   Q_INVOKABLE QString uriFromUrl(QString url) {
     return engine.offlineStoragePath() + "/" + url.split("/").last();
@@ -55,31 +73,48 @@ public:
     return false;
   }
 
-  Q_INVOKABLE bool checkConnection() {
-    bool retVal = false;
+  Q_INVOKABLE void checkConnection() {
+    setInternetAvailable(true);
     QNetworkRequest req(QUrl(
         "http://127.0.0.1:5000")); /*(QUrl("http://networkcheck.kde.org"));*/
-    QNetworkReply *reply = nam.get(req);
     QEventLoop loop;
-    QTimer timeoutTimer;
-    QObject::connect(&timeoutTimer, &QTimer::timeout, &loop, &QEventLoop::quit);
-    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-    timeoutTimer.setSingleShot(true);
-    timeoutTimer.start(3000);
-    loop.exec();
-    if (reply->bytesAvailable())
-      retVal = true;
-    delete reply;
-    return retVal;
+    while (true) {
+      QNetworkReply *reply = nam.get(req);
+      QTimer timeoutTimer;
+      QObject::connect(&timeoutTimer, &QTimer::timeout, &loop,
+                       &QEventLoop::quit);
+      QObject::connect(reply, &QNetworkReply::finished, &loop,
+                       &QEventLoop::quit);
+      timeoutTimer.setSingleShot(true);
+      timeoutTimer.start(3000);
+      loop.exec();
+      QObject::disconnect(&timeoutTimer, &QTimer::timeout, &loop,
+                          &QEventLoop::quit);
+      QObject::disconnect(reply, &QNetworkReply::finished, &loop,
+                          &QEventLoop::quit);
+      if (reply->bytesAvailable())
+        setInternetAvailable(true);
+      else
+        setInternetAvailable(false);
+      delete reply;
+      QTimer nextCheck;
+      QObject::connect(&nextCheck, &QTimer::timeout, &loop, &QEventLoop::quit);
+      nextCheck.setSingleShot(true);
+      nextCheck.start(30000);
+      loop.exec();
+      QObject::disconnect(&nextCheck, &QTimer::timeout, &loop,
+                          &QEventLoop::quit);
+    }
   }
 
 signals:
-  void internetAvailabilityChanged();
+  bool internetAvailabilityChanged(bool available);
+  bool exitStatusSetted(bool exitStatus);
 
 private:
   QNetworkAccessManager nam;
   QQmlApplicationEngine engine;
-  bool m_internetAvailable;
+  bool m_internetAvailable, m_exitStatus;
 };
 
-#endif // NET_H
+#endif

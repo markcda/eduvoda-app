@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.LocalStorage 2.15
 import com.cc.nethandler 1.0
+import "components"
 
 ApplicationWindow {
   id: window
@@ -12,6 +13,11 @@ ApplicationWindow {
 
   NetHandler {
     id: nh
+    Component.onCompleted: nh.checkConnection()
+  }
+  
+  onClosing: { 
+    nh.exit = true;
   }
   
   header: ToolBar {
@@ -34,6 +40,11 @@ ApplicationWindow {
       text: stackView.currentItem.title
       anchors.centerIn: parent
     }
+  }
+  
+  footer: BottomTabBar {
+    id: bottomTabBar
+    height: 40
   }
 
   Drawer {
@@ -108,7 +119,7 @@ ApplicationWindow {
             tx.executeSql('CREATE TABLE homePaths (n INTEGER NOT NULL UNIQUE, path TEXT NOT NULL, PRIMARY KEY("n" AUTOINCREMENT))');
           })
         }
-        xmlrequest.open("GET", "http://127.0.0.1:5000/get-products?hash=ffff", false);
+        xmlrequest.open("GET", "http://127.0.0.1:5000/get-products?hash=ffff");
         xmlrequest.send();
       }
     }

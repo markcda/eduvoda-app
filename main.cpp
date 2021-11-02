@@ -1,9 +1,9 @@
+#include "net.h"
 #include <QDir>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QSettings>
 #include <iostream>
-#include "net.h"
 
 int main(int argc, char *argv[]) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
