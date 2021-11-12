@@ -5,7 +5,7 @@ import QtQuick.LocalStorage 2.15
 
 Rectangle {
   id: good
-  width: parent.width / 2 - 20
+  width: 158
   height: width
   radius: 5
   border.width: 2
@@ -18,6 +18,7 @@ Rectangle {
   property int category: 0
   property int id: 0
   property bool inBasket: false
+  property bool inFavors: false
   
   function fill() {
     let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
@@ -29,6 +30,12 @@ Rectangle {
             good.inBasket = true;
             good.num = in_basket.rows.item(0).num;
           }
+      }
+      let in_favors = tx.executeSql('SELECT * FROM liked WHERE id=?', good.id);
+      if (in_favors.rows.length != 0) {
+        if (in_favors.rows.item(0))
+          if (in_favors.rows.item(0).id == good.id)
+            good.inFavors = true;
       }
     })
   }
@@ -92,7 +99,6 @@ Rectangle {
       onPressed: addToBasket.background.color = "grey"
       onReleased: addToBasket.background.color = "white"
       onClicked: {
-        // Здесь нужно добавить это в корзину в SQL и заменить иконку.
         let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
         db.transaction(function (tx) {
           if (!good.inBasket) {
@@ -109,7 +115,7 @@ Rectangle {
 
   ToolButton {
     id: addToBookmark
-    icon.source: "../arts/16/bookmark-new.svg"
+    icon.source: good.inFavors ? "../arts/16/bookmark-remove.svg" : "../arts/16/bookmark-new.svg"
     icon.color: "red"
     icon.width: 16
     icon.height: 16
@@ -124,6 +130,24 @@ Rectangle {
       height: addToBookmark.height
       radius: height / 2
       border.color: "red"
+    }
+    
+    MouseArea {
+      anchors.fill: parent
+      onPressed: addToBookmark.background.color = "grey"
+      onReleased: addToBookmark.background.color = "white"
+      onClicked: {
+        let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
+        db.transaction(function (tx) {
+          if (!good.inFavors) {
+            let make = tx.executeSql('INSERT INTO liked VALUES (?);', good.id);
+            good.inFavors = true;
+          } else {
+            let del = tx.executeSql('DELETE FROM liked WHERE id=?', good.id);
+            good.inFavors = false;
+          }
+        })
+      }
     }
   }
 }

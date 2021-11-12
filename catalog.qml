@@ -33,7 +33,7 @@ Page {
       id: lv
       y: titleLbl.height
       width: parent.width
-      columns: 2
+      columns: parent.width / 158
 
       Component.onCompleted: {
         if (category === 0) titleLbl.text = "Все товары";
