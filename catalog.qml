@@ -50,6 +50,7 @@ Page {
               obj.text = goods.rows.item(i).label;
               obj.img = "file://" + goods.rows.item(i).imageUri;
               obj.id = goods.rows.item(i).id;
+              obj.fill();
             }
           }
         })

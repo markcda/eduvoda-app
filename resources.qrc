@@ -16,6 +16,7 @@
         <file>arts/16/bookmark-remove.svg</file>
         <file>arts/16/view-multiple-objects.svg</file>
         <file>arts/16/amarok_cart_view.svg</file>
+        <file>arts/16/amarok_cart_remove.svg</file>
         <file>arts/16/bookmarks.svg</file>
         <file>arts/16/username-copy.svg</file>
     </qresource>

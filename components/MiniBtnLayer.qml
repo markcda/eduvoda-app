@@ -25,7 +25,8 @@ Item {
         implicitHeight: 30
         Layout.rightMargin: 0
         onClicked: {
-          if (numOfGoods > 1) numOfGoods -= 1;
+          if (numOfGoods > 1)
+            numOfGoods -= 1;
         }
 
         contentItem: Text {
@@ -65,9 +66,7 @@ Item {
         implicitHeight: 30
         Layout.leftMargin: 0
         text: "+"
-        onClicked: {
-          numOfGoods += 1;
-        }
+        onClicked: numOfGoods += 1;
 
         contentItem: Text {
           anchors.centerIn: add

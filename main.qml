@@ -93,7 +93,7 @@ ApplicationWindow {
       db.transaction(function (tx) {
         // Проверка на запуск в первый раз
         let res = tx.executeSql('SELECT name FROM sqlite_master WHERE type="table" AND name="fs"');
-        if (res.rows.length === 0) {
+        if (res.rows.length == 0) {
           stackView.push("register.qml");
           pushBackToolButton.visible = false;
           firstStart = true;
@@ -117,6 +117,7 @@ ApplicationWindow {
             tx.executeSql('CREATE TABLE fs (key TEXT, val TEXT)');
             tx.executeSql('CREATE TABLE liked (id INTEGER NOT NULL UNIQUE)');
             tx.executeSql('CREATE TABLE homePaths (n INTEGER NOT NULL UNIQUE, path TEXT NOT NULL, PRIMARY KEY("n" AUTOINCREMENT))');
+            tx.executeSql('CREATE TABLE basket (id INTEGER NOT NULL UNIQUE, num INTEGER NOT NULL)');
           })
         }
         xmlrequest.open("GET", "http://127.0.0.1:5000/get-products?hash=ffff");
