@@ -23,7 +23,7 @@ public:
     QObject::connect(this, &NetHandler::exitStatusSetted, this, [this]() {
       if (isExitStatusSended()) {
         QCoreApplication::exit(0);
-        exit(0);
+        enclose = true;
       }
     });
   }
@@ -97,6 +97,7 @@ public:
       else
         setInternetAvailable(false);
       delete reply;
+      if (enclose) exit(0);
       QTimer nextCheck;
       QObject::connect(&nextCheck, &QTimer::timeout, &loop, &QEventLoop::quit);
       nextCheck.setSingleShot(true);
@@ -114,6 +115,7 @@ signals:
 private:
   QNetworkAccessManager nam;
   QQmlApplicationEngine engine;
+  bool enclose = false;
   bool m_internetAvailable, m_exitStatus;
 };
 
