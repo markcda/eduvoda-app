@@ -9,7 +9,7 @@ Page {
   height: parent.height
   topPadding: 5
 
-  title: qsTr("Главная")
+  title: qsTr("ЕдуВода")
 
   ScrollView {
     id: sv
@@ -18,8 +18,6 @@ Page {
     contentWidth: -1
 
     ScrollBar.horizontal.policy: Qt.ScrollBarAlwaysOff
-
-
 
     Label {
       id: helloLbl

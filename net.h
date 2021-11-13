@@ -76,7 +76,7 @@ public:
   Q_INVOKABLE void checkConnection() {
     setInternetAvailable(true);
     QNetworkRequest req(QUrl(
-        "http://127.0.0.1:5000")); /*(QUrl("http://networkcheck.kde.org"));*/
+        "http://127.0.0.1:5000/check-net")); /*(QUrl("http://networkcheck.kde.org"));*/
     QEventLoop loop;
     while (true) {
       QNetworkReply *reply = nam.get(req);
