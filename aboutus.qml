@@ -7,6 +7,8 @@ Page {
   height: parent.height
 
   title: "О нас"
+  
+  StackView.onActivating: bottomTabBar.setSelected(0);
 
   ScrollView {
     id: sv

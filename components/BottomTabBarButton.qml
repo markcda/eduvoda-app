@@ -6,6 +6,11 @@ import QtGraphicalEffects 1.0
 Rectangle {
   id: rect
   height: parent.height
+  
+  property bool selected: false
+  property alias text: label.text
+  property alias img: image.source
+  property string path: ""
 
   Image {
     id: image
@@ -20,7 +25,7 @@ Rectangle {
     id: co
     anchors.fill: image
     source: image
-    color: "transparent"
+    color: rect.selected ? "#aa1d4e" : "black";
   }
   
   Label {
@@ -29,23 +34,25 @@ Rectangle {
     anchors.top: image.bottom
     horizontalAlignment: "AlignHCenter"
     font.pointSize: 8
+    color: rect.selected ? "#aa1d4e" : "black";
   }
 
   MouseArea {
     anchors.fill: parent
     onPressed: {
+      if (rect.selected) return;
       label.color = "grey";
       co.color = "grey";
     }
     onReleased: {
-      label.color = rect.isactive ? "#aa1d4e" : "black";
-      co.color = rect.isactive ? "#aa1d4e" : "black";
+      label.color = rect.selected ? "#aa1d4e" : "black";
+      co.color = rect.selected ? "#aa1d4e" : "black";
     }
-    onClicked: stackView.push(rect.path)
+    onClicked: if (!rect.selected) stackView.push(rect.path)
   }
   
-  property alias text: label.text
-  property alias img: image.source
-  property string path: ""
-  property bool isactive: false
+  function reload() {
+    label.color = rect.selected ? "#aa1d4e" : "black";
+    co.color = rect.selected ? "#aa1d4e" : "black";
+  }
 }

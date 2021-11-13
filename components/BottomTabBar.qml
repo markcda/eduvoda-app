@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.15
 Rectangle {
   id: rl
   color: "white"
-
+  
   BottomTabBarButton {
     id: catalogBTBBtn
     anchors.verticalCenter: parent.verticalCenter
@@ -43,5 +43,24 @@ Rectangle {
     text: "Профиль"
     img: "../arts/16/username-copy.svg"
     path: "../profile.qml"
+  }
+  
+  function setSelected(n) {
+    catalogBTBBtn.selected = false;
+    historyBtn.selected = false;
+    favoritesBtn.selected = false;
+    profileBtn.selected = false;
+    if (n === 1)
+      catalogBTBBtn.selected = true;
+    else if (n === 2)
+      historyBtn.selected = true;
+    else if (n === 3)
+      favoritesBtn.selected = true;
+    else if (n === 4)
+      profileBtn.selected = true;
+    catalogBTBBtn.reload();
+    historyBtn.reload();
+    favoritesBtn.reload();
+    profileBtn.reload();
   }
 }

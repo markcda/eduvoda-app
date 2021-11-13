@@ -7,6 +7,8 @@ Page {
   title: "Избранное"
   id: page
 
+  StackView.onActivating: bottomTabBar.setSelected(3);
+  
   ScrollView {
     id: sv
     width: parent.width

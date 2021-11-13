@@ -11,6 +11,8 @@ Page {
   property alias catText: titleLbl.text
 
   title: "Товары"
+  
+  StackView.onActivating: bottomTabBar.setSelected(1);
 
   ScrollView {
     id: sv

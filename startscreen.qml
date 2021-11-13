@@ -10,6 +10,8 @@ Page {
   topPadding: 5
 
   title: qsTr("ЕдуВода")
+  
+  StackView.onActivating: bottomTabBar.setSelected(0);
 
   ScrollView {
     id: sv

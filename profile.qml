@@ -5,10 +5,16 @@ Page {
   width: parent.width
   height: parent.height
 
-  title: qsTr("Страница 1")
+  title: qsTr("Профиль")
+  
+  StackView.onActivating: bottomTabBar.setSelected(4);
+  
+  ScrollView {
+    id: sv
+    width: parent.width
+    height: parent.height
+    contentWidth: -1
 
-  Label {
-    text: qsTr("You are on Page 1.")
-    anchors.centerIn: parent
+    ScrollBar.horizontal.policy: Qt.ScrollBarAlwaysOff
   }
 }

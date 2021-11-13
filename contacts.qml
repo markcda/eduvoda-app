@@ -6,6 +6,8 @@ Page {
   height: parent.height
 
   title: qsTr("Страница 2")
+  
+  StackView.onActivating: bottomTabBar.setSelected(0);
 
   Label {
     text: qsTr("You are on Page 2.")

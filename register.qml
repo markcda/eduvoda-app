@@ -6,6 +6,8 @@ import "components"
 
 Page {
   title: "Вход в приложение"
+  
+  StackView.onActivating: bottomTabBar.setSelected(0);
 
   ScrollView {
     id: sv
@@ -60,16 +62,6 @@ Page {
       }
     }
 
-    TextField {
-      id: passField
-      width: parent.width
-      leftPadding: 5
-      rightPadding: 5
-      y: phoneField.y + phoneField.height + 10
-      placeholderText: "Пароль"
-      echoMode: TextInput.Password
-    }
-
     GreenBtn {
       id: registerBtn
       y: passField.y + passField.height + 10
@@ -81,7 +73,6 @@ Page {
           regError.text = "Вы не ввели своё имя";
           return;
         }
-        // ...
         if (!(nh.isInternetAvailable())) {
           regError.text = "Интернет недоступен. Повторите попытку позже.";
           return;
