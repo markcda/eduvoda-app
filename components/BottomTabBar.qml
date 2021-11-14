@@ -20,7 +20,7 @@ Rectangle {
     anchors.verticalCenter: parent.verticalCenter
     width: 60
     x: (parent.width - 4 * width - 3 * 30) / 2 + width + 30
-    text: "Мои заказы"
+    text: "Корзина и заказы"
     img: "../arts/16/amarok_cart_view.svg"
     path: "../basket.qml"
   }

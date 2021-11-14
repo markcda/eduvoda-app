@@ -56,7 +56,7 @@ Page {
       leftPadding: 5
       rightPadding: 5
       y: emailField.y + emailField.height + 10
-      placeholderText: "Ваш номер телефона"
+      placeholderText: "Ваш номер телефона (+7XXXXXXXXXX)"
       validator: RegularExpressionValidator {
         regularExpression: /\+[0-9]+/
       }
@@ -64,7 +64,7 @@ Page {
 
     GreenBtn {
       id: registerBtn
-      y: passField.y + passField.height + 10
+      y: phoneField.y + phoneField.height + 10
       anchors.bottomMargin: 10
       text: "Зарегистрироваться"
       ma.onClicked: {
@@ -77,7 +77,13 @@ Page {
           regError.text = "Интернет недоступен. Повторите попытку позже.";
           return;
         }
-
+        let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
+        db.transaction(function (tx) {
+          tx.executeSql('CREATE TABLE fs (key TEXT, val TEXT)');
+          tx.executeSql('INSERT INTO fs VALUES (?, ?)', ["name", nameField.text]);
+          tx.executeSql('INSERT INTO fs VALUES (?, ?)', ["email", emailField.text]);
+          tx.executeSql('INSERT INTO fs VALUES (?, ?)', ["phone", phoneField.text]);
+        });
         while (stackView.depth > 1)
           stackView.pop();
         pushBackToolButton.visible = true;

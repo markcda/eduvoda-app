@@ -23,17 +23,24 @@ Page {
 
     Label {
       id: helloLbl
-      y: 10
+      y: 5
       width: parent.width - 20
       anchors.horizontalCenter: parent.horizontalCenter
-      text: "<h1>Привет!</h1><h2>Выбери категорию товаров:</h2>"
+      text: "<h1>Категории товаров:</h1>"
       textFormat: Text.RichText
       wrapMode: Text.WordWrap
     }
 
     Category {
-      id: c1
+      id: c0
       y: helloLbl.y + helloLbl.height + 10
+      catText: "Все товары"
+      category: 0
+    }
+    
+    Category {
+      id: c1
+      y: c0.y + c0.height + 5
       catText: "Питьевая вода (5 л)"
       category: 1
     }
@@ -65,6 +72,7 @@ Page {
       catText: "Сопутствующие товары"
       category: 5
     }
+    
     contentHeight: c5.y + c5.height + 10
   }
 }

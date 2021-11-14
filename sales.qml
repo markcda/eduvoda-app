@@ -1,8 +1,11 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import QtGraphicalEffects 1.0
+import QtQuick.LocalStorage 2.15
 import "components"
 
 Page {
+  id: page
   width: parent.width
   height: parent.height
 
@@ -18,49 +21,26 @@ Page {
 
     ScrollBar.horizontal.policy: Qt.ScrollBarAlwaysOff
 
-    GradientRect1 {
-      id: gr1
-      y: 10
-      anchors.horizontalCenter: parent.horizontalCenter
-
-      Label {
-        id: gr1Lbl
-        width: parent.width
-        anchors.verticalCenter: parent.verticalCenter
-        leftPadding: 5
-        color: "white"
-        text: "Для физических лиц, купивших 2 бутылки воды по 19 литров, механическая помпа и залог на тару всего за 1050 рублей!"
-        textFormat: Text.RichText
-        wrapMode: Text.WordWrap
-        font.pointSize: 14
-      }
-      height: gr1Lbl.height + 10
-
-      start: Qt.point(x, y)
-      end: Qt.point(x + width, y + height)
+    Component.onCompleted: {
+      let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
+      db.transaction(function (tx) {
+        let sales = tx.executeSql('SELECT * FROM sales');
+        if (sales.rows.length === 0) {
+          var noSales = Qt.createQmlObject('import QtQuick 2.0; import QtQuick.Controls 2.12; Label { anchors.centerIn: parent; text: "На данный момент скидок нет."; wrapMode: Text.WordWrap; font.pixelSize: Qt.application.font.pixelSize * 1.6; }', page);
+          return;
+        }
+        for (let i = 0; i < sales.rows.length; i++) {
+          let obj = Qt.createQmlObject(sales.rows[i].component, sv);
+          if (i === 0) 
+            obj.y = 10;
+          else {
+            let V = sv.children[sv.children.length - 2];
+            obj.y = V.y + V.height + 5;
+          }
+        }
+        let V = sv.children[sv.children.length - 1];
+        sv.contentHeight = V.y + V.height + 10;
+      })
     }
-
-    GradientRect2 {
-      id: gr2
-      y: gr1.y + gr1.height + 5
-      anchors.horizontalCenter: parent.horizontalCenter
-
-      Label {
-        id: gr2Lbl
-        width: parent.width
-        anchors.verticalCenter: parent.verticalCenter
-        leftPadding: 5
-        color: "white"
-        text: "Для юридических лиц, заключивших договор на доставку воды на весь 2021 год, тара предоставляется без залога!"
-        textFormat: Text.RichText
-        wrapMode: Text.WordWrap
-        font.pointSize: 14
-      }
-      height: gr2Lbl.height + 10
-
-      start: Qt.point(x, y)
-      end: Qt.point(x + width, y + height)
-    }
-    contentHeight: gr2.y + gr2.height + 10
   }
 }

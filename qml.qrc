@@ -16,8 +16,6 @@
         <file>components/Category.qml</file>
         <file>components/Good.qml</file>
         <file>components/GreenBtn.qml</file>
-        <file>components/GradientRect1.qml</file>
-        <file>components/GradientRect2.qml</file>
         <file>components/MiniBtnLayer.qml</file>
         <file>liked.qml</file>
         <file>components/LikedGood.qml</file>
