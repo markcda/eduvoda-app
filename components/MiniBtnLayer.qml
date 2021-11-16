@@ -9,6 +9,7 @@ Item {
 
   Rectangle {
     id: numOfGoodsEditor
+    color: "transparent"
     border.color: "#e7e7e7"
     implicitHeight: 30
     radius: 15
@@ -79,6 +80,6 @@ Item {
       }
     }
 
-    width: row.width
+    implicitWidth: row.width
   }
 }

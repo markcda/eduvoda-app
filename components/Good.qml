@@ -10,7 +10,7 @@ Rectangle {
   radius: 10
   color: "transparent"
   border.width: 1
-  border.color: "transparent"
+  border.color: "#e7e7e7"
   Layout.alignment: Qt.AlignCenter
   Layout.margins: 5
 
