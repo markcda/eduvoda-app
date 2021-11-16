@@ -4,7 +4,7 @@ import QtQuick.Controls 2.5
 Rectangle {
   id: rect
   width: parent.width - 20
-  height: 45
+  height: 30
   radius: height / 2
   anchors.horizontalCenter: parent.horizontalCenter
   color: "green"

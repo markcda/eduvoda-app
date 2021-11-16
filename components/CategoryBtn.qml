@@ -4,11 +4,12 @@ import QtQuick.Controls 2.5
 Rectangle {
   id: rect
   width: parent.width - 20
-  height: 45
+  height: 30
   radius: height / 2
   anchors.horizontalCenter: parent.horizontalCenter
-  border.width: 3
-  border.color: "black"
+  color: "transparent"
+  border.width: 1
+  border.color: "#e7e7e7"
 
   property alias catText: label.text
   property int category: 0
@@ -22,8 +23,8 @@ Rectangle {
 
   MouseArea {
     anchors.fill: parent
-    onPressed: rect.color = "grey"
-    onReleased: rect.color = "white"
+    onPressed: rect.color = "#e7e7e7"
+    onReleased: rect.color = "transparent"
     onClicked: stackView.push("../catalog.qml", {"category": category, "catText": catText})
   }
 }

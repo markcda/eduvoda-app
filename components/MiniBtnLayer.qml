@@ -5,10 +5,11 @@ import QtQuick.Layouts 1.12
 Item {
   property int goodId: 0
   property int numOfGoods: 1
+  signal changed
 
   Rectangle {
     id: numOfGoodsEditor
-    border.color: "grey"
+    border.color: "#e7e7e7"
     implicitHeight: 30
     radius: 15
 

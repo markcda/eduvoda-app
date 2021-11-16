@@ -9,8 +9,9 @@ Rectangle {
   x: 5
   height: 50
   radius: height / 2
-  border.width: 2
-  border.color: "black"
+  color: "transparent"
+  border.width: 1
+  border.color: "#e7e7e7"
   Layout.alignment: Qt.AlignCenter
   Layout.margins: 5
 
@@ -34,8 +35,8 @@ Rectangle {
 
   MouseArea {
     anchors.fill: parent
-    onPressed: good.color = "grey"
-    onReleased: good.color = "white"
+    onPressed: good.color = "#e7e7e7"
+    onReleased: good.color = "transparent"
     onClicked: stackView.push("../good.qml", {"id": id})
   }
   
@@ -64,13 +65,14 @@ Rectangle {
       width: addToBookmark.width
       height: addToBookmark.height
       radius: height / 2
+      color: "transparent"
       border.color: "red"
     }
   
     MouseArea {
       anchors.fill: addToBookmark
-      onPressed: addToBookmark.background.color = "grey"
-      onReleased: addToBookmark.background.color = "white"
+      onPressed: addToBookmark.background.color = "#e7e7e7"
+      onReleased: addToBookmark.background.color = "transparent"
       onClicked: {
         let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
         db.transaction(function (tx) {

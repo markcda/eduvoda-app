@@ -13,7 +13,7 @@
         <file>register.qml</file>
         <file>good.qml</file>
         <file>goodtake.qml</file>
-        <file>components/Category.qml</file>
+        <file>components/CategoryBtn.qml</file>
         <file>components/Good.qml</file>
         <file>components/GreenBtn.qml</file>
         <file>components/MiniBtnLayer.qml</file>
