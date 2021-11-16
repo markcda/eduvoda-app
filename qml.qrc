@@ -19,6 +19,7 @@
         <file>components/MiniBtnLayer.qml</file>
         <file>liked.qml</file>
         <file>components/LikedGood.qml</file>
+        <file>components/GoodInBasket.qml</file>
         <file>components/BottomTabBar.qml</file>
         <file>components/BottomTabBarButton.qml</file>
     </qresource>

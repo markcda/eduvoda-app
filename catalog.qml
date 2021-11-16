@@ -43,9 +43,8 @@ Page {
         db.transaction(function (tx) {
           let goods = tx.executeSql('SELECT * FROM goods');
           for (let i = 0; i < goods.rows.length; i++) {
-            if (category !== 0) {
+            if (category !== 0)
               if (goods.rows.item(i).category !== category) continue;
-            }
             let com = Qt.createComponent("components/Good.qml");
             if (com.status === Component.Ready) {
               let obj = com.createObject(lv);

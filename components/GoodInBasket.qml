@@ -16,17 +16,19 @@ Rectangle {
 
   property alias text: label.text
   property alias img: image.source
+  property int category: 0
   property int id: 0
-  property bool inLiked: false
+  property bool inBasket: false
   
   function fill() {
     let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
     db.transaction(function (tx) {
-      let _liked = tx.executeSql('SELECT * FROM liked WHERE id=?', good.id);
-      if (_liked.rows.length != 0) {
-        if (_liked.rows.item(0))
-          if (_liked.rows.item(0).id == good.id) {
-            good.inLiked = true;
+      let in_basket = tx.executeSql('SELECT * FROM basket WHERE id=?', good.id);
+      if (in_basket.rows.length != 0) {
+        if (in_basket.rows.item(0))
+          if (in_basket.rows.item(0).id == good.id) {
+            good.inBasket = true;
+            good.num = in_basket.rows.item(0).num;
           }
       }
     })
@@ -48,50 +50,62 @@ Rectangle {
     height: 40
     fillMode: Image.PreserveAspectFit
   }
-    
+
   ToolButton {
-    id: addToBookmark
-    icon.source: good.inLiked ? "../arts/16/bookmark-remove.svg" : "../arts/16/bookmark-new.svg"
-    icon.color: "red"
-    icon.width: 16
-    icon.height: 16
+    id: addToBasket
+    icon.source: good.inBasket ? "../arts/16/amarok_cart_remove.svg" : "../arts/16/amarok_cart_add.svg"
+    icon.color: "green"
+    icon.width: 18
+    icon.height: 18
     anchors.right: good.right
     anchors.verticalCenter: good.verticalCenter
     anchors.rightMargin: 10
 
     background: Rectangle {
-      anchors.centerIn: addToBookmark
-      width: addToBookmark.width
-      height: addToBookmark.height
+      anchors.centerIn: addToBasket
+      width: addToBasket.width
+      height: addToBasket.height
       radius: height / 2
-      border.color: "red"
+      color: "white"
+      border.color: "green"
     }
-  
+    
     MouseArea {
-      anchors.fill: addToBookmark
-      onPressed: addToBookmark.background.color = "grey"
-      onReleased: addToBookmark.background.color = "white"
+      anchors.fill: parent
+      onPressed: addToBasket.background.color = "grey"
+      onReleased: addToBasket.background.color = "white"
       onClicked: {
         let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
         db.transaction(function (tx) {
-          if (!good.inLiked) {
-            let make = tx.executeSql('INSERT INTO liked VALUES (?);', good.id);
-            good.inLiked = true;
+          if (!good.inBasket) {
+            let make = tx.executeSql('INSERT INTO basket VALUES (?, ?);', [good.id, minibtn.numOfGoods]);
+            good.inBasket = true;
           } else {
-            let del = tx.executeSql('DELETE FROM liked WHERE id=?', good.id);
-            good.inLiked = false;
+            let del = tx.executeSql('DELETE FROM basket WHERE id=?', good.id);
+            good.inBasket = false;
           }
         })
       }
     }
   }
   
+  MiniBtnLayer {
+    height: 40
+    anchors.right: addToBasket.left
+    anchors.rightMargin: 110
+    anchors.top: parent.top
+    anchors.topMargin: 10
+    id: minibtn
+  }
+  
+  property alias num: minibtn.numOfGoods
+  
   Label {
     id: label
     width: parent.width
     anchors.left: image.right
     anchors.leftMargin: 5
-    anchors.right: parent.right
+    anchors.right: minibtn.left
     anchors.rightMargin: 5
     anchors.verticalCenter: parent.verticalCenter
     elide: Text.ElideRight

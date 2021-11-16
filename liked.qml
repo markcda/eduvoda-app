@@ -17,11 +17,11 @@ Page {
 
     ScrollBar.horizontal.policy: Qt.ScrollBarAlwaysOff
     
-    GridLayout {
-      id: lv
-      y: 0
+    Column {
+      id: cl
+      y: 5
       width: parent.width
-      columns: (parent.width + 10) / 174
+      spacing: 5
 
       Component.onCompleted: {
         var db = LocalStorage.openDatabaseSync("db", "1.0", "AppDB", 1000000);
@@ -35,7 +35,7 @@ Page {
               if (good.rows.length !== 1) continue;
               var com = Qt.createComponent("components/LikedGood.qml");
               if (com.status === Component.Ready) {
-                var obj = com.createObject(lv);
+                var obj = com.createObject(cl);
                 obj.text = good.rows.item(0).label;
                 obj.img = "file://" + good.rows.item(0).imageUri;
                 obj.id = good.rows.item(0).id;
@@ -46,6 +46,6 @@ Page {
         })
       }
     }
-    contentHeight: lv.y + lv.height + 5
+    contentHeight: cl.y + cl.height + 5
   }
 }

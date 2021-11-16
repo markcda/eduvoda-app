@@ -25,7 +25,7 @@ ApplicationWindow {
 
     ToolButton {
       id: pushBackToolButton
-      text: stackView.depth > 1 ? "\u25C0" : "\u2630"
+      text: stackView.depth > 1 ? "←" : "☰"
       font.pixelSize: Qt.application.font.pixelSize * 1.6
       onClicked: {
         if (stackView.depth > 1) {
@@ -76,6 +76,22 @@ ApplicationWindow {
         width: parent.width
         onClicked: {
           stackView.push("liked.qml")
+          drawer.close()
+        }
+      }
+      ItemDelegate {
+        text: "Корзина"
+        width: parent.width
+        onClicked: {
+          stackView.push("basket.qml")
+          drawer.close()
+        }
+      }
+      ItemDelegate {
+        text: "Профиль"
+        width: parent.width
+        onClicked: {
+          stackView.push("profile.qml")
           drawer.close()
         }
       }
