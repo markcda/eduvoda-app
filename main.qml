@@ -28,8 +28,11 @@ ApplicationWindow {
       text: stackView.depth > 1 ? "←" : "☰"
       font.pixelSize: Qt.application.font.pixelSize * 1.6
       onClicked: {
-        if (stackView.depth > 1) {
+        if (stackView.depth > 2) {
           stackView.pop()
+        } else if (stackView.depth == 2) {
+          stackView.pop();
+          stackView.replace("startscreen.qml", StackView.PopTransition);
         } else {
           drawer.open()
         }
