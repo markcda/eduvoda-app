@@ -7,7 +7,6 @@ import "components"
 Page {
   title: "Корзина и заказы"
   id: page
-  property var chx: []
 
   StackView.onActivating: bottomTabBar.setSelected(2);
   
@@ -38,7 +37,6 @@ Page {
               var com = Qt.createComponent("components/GoodInBasket.qml");
               if (com.status === Component.Ready) {
                 var obj = com.createObject(cl);
-                chx.push(obj);
                 obj.text = good.rows.item(0).label;
                 obj.img = "file://" + good.rows.item(0).imageUri;
                 obj.id = good.rows.item(0).id;
@@ -73,18 +71,19 @@ Page {
           let eduvoda_app_url_root = "https://markcda.pythonanywhere.com/";
           buy.enabled = false;
           let r = tx.executeSql('SELECT val FROM fs WHERE key = ?', "email");
-          let user_email = r.rows.item(0).email;
+          let user_email = r.rows.item(0).val;
           let order = [];
-          for (let obj in chx) {
+          r = tx.executeSql('SELECT * FROM basket');
+          for (var i = 0; i < r.rows.length; i++) {
             let good = {};
-            good["id"] = obj.id;
-            good["num"] = obj.num;
+            good["id"] = r.rows.item(i).id;
+            good["num"] = r.rows.item(i).num;
             order.push(good);
           }
           let data = JSON.stringify(order);
           let http = new XMLHttpRequest()
           let url = eduvoda_app_url_root + "register-order";
-          let params = "email=\"" + user_email + "\"";
+          let params = "email=" + user_email + "&data=" + JSON.stringify(order);
           http.open("POST", url, false);
           http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           http.setRequestHeader("Content-length", params.length);
