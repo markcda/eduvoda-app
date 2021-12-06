@@ -47,7 +47,7 @@ public:
   Q_INVOKABLE bool downloadFile(QString url) {
     if (not isInternetAvailable())
       return false;
-    QNetworkRequest req(url + "?hash=ffff");
+    QNetworkRequest req(url_root + url + "?hash=ffff");
     QNetworkReply *reply = nam.get(req);
     QEventLoop loop;
     QTimer timeoutTimer;
@@ -75,8 +75,7 @@ public:
 
   Q_INVOKABLE void checkConnection() {
     setInternetAvailable(true);
-    QNetworkRequest req(QUrl(
-        "http://127.0.0.1:5000/check-net")); /*(QUrl("http://networkcheck.kde.org"));*/
+    QNetworkRequest req(QUrl(url_root + "check-net"));
     QEventLoop loop;
     while (true) {
       QNetworkReply *reply = nam.get(req);
@@ -117,6 +116,7 @@ private:
   QQmlApplicationEngine engine;
   bool enclose = false;
   bool m_internetAvailable, m_exitStatus;
+  const QString url_root = "https://markcda.pythonanywhere.com/";
 };
 
 #endif

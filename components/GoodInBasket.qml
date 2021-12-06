@@ -21,6 +21,19 @@ Rectangle {
   property int id: 0
   property bool inBasket: false
   
+  function add_remove() {
+    let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
+    db.transaction(function (tx) {
+      if (!good.inBasket) {
+        let make = tx.executeSql('INSERT INTO basket VALUES (?, ?);', [good.id, minibtn.numOfGoods]);
+        good.inBasket = true;
+      } else {
+        let del = tx.executeSql('DELETE FROM basket WHERE id=?', good.id);
+        good.inBasket = false;
+      }
+    })
+  }
+  
   function fill() {
     let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
     db.transaction(function (tx) {
@@ -75,18 +88,7 @@ Rectangle {
       anchors.fill: parent
       onPressed: addToBasket.background.color = "#e7e7e7"
       onReleased: addToBasket.background.color = "transparent"
-      onClicked: {
-        let db = LocalStorage.openDatabaseSync("db", "1.0", "EduVodaLDB", 1000000);
-        db.transaction(function (tx) {
-          if (!good.inBasket) {
-            let make = tx.executeSql('INSERT INTO basket VALUES (?, ?);', [good.id, minibtn.numOfGoods]);
-            good.inBasket = true;
-          } else {
-            let del = tx.executeSql('DELETE FROM basket WHERE id=?', good.id);
-            good.inBasket = false;
-          }
-        })
-      }
+      onClicked: { good.add_remove(); }
     }
   }
   

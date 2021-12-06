@@ -138,7 +138,8 @@ ApplicationWindow {
             tx.executeSql('CREATE TABLE basket (id INTEGER NOT NULL UNIQUE, num INTEGER NOT NULL)');
           })
         }
-        goods.open("GET", "http://127.0.0.1:5000/get-products?hash=ffff");
+        let url_root = "https://markcda.pythonanywhere.com/";
+        goods.open("GET", url_root + "get-products?hash=ffff");
         goods.send();
         let sales = new XMLHttpRequest();
         sales.onreadystatechange = function() {
@@ -151,7 +152,7 @@ ApplicationWindow {
             }
           })
         }
-        sales.open("GET", "http://127.0.0.1:5000/get-sales?hash=hhhh");
+        sales.open("GET", url_root + "get-sales?hash=hhhh");
         sales.send();
       }
     }
