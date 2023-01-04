@@ -85,7 +85,7 @@ Page {
           tx.executeSql('INSERT INTO fs VALUES (?, ?)', ["phone", phoneField.text]);
         });
         while (stackView.depth > 1)
-          stackView.pop();
+          stackView.replace("startscreen.qml", StackView.PopTransition);
         pushBackToolButton.visible = true;
       }
     }

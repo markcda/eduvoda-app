@@ -103,7 +103,7 @@ ApplicationWindow {
 
   StackView {
     id: stackView
-    initialItem: "startscreen.qml"
+    initialItem: "aboutus.qml"
     anchors.fill: parent
 
     Component.onCompleted: {
@@ -116,6 +116,9 @@ ApplicationWindow {
           stackView.push("register.qml");
           pushBackToolButton.visible = false;
           firstStart = true;
+        } else {
+          stackView.replace("startscreen.qml", StackView.PopTransition);
+          pushBackToolButton.visible = true;
         }
       });
       if (firstStart === true) {
@@ -138,7 +141,7 @@ ApplicationWindow {
             tx.executeSql('CREATE TABLE basket (id INTEGER NOT NULL UNIQUE, num INTEGER NOT NULL)');
           })
         }
-        let url_root = "https://markcda.pythonanywhere.com/";
+        let url_root = "http://127.0.0.1:5000/";
         goods.open("GET", url_root + "get-products?hash=ffff");
         goods.send();
         let sales = new XMLHttpRequest();

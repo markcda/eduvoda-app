@@ -116,7 +116,7 @@ private:
   QQmlApplicationEngine engine;
   bool enclose = false;
   bool m_internetAvailable, m_exitStatus;
-  const QString url_root = "https://markcda.pythonanywhere.com/";
+  const QString url_root = "http://127.0.0.1:5000/";
 };
 
 #endif

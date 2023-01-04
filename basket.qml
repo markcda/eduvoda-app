@@ -68,7 +68,7 @@ Page {
       ma.onClicked: {
         let db = LocalStorage.openDatabaseSync("db", "1.0", "AppDB", 1000000);
         db.transaction(function (tx) {
-          let eduvoda_app_url_root = "https://markcda.pythonanywhere.com/";
+          let eduvoda_app_url_root = "http://127.0.0.1:5000/";
           buy.enabled = false;
           let r = tx.executeSql('SELECT val FROM fs WHERE key = ?', "email");
           let user_email = r.rows.item(0).val;
